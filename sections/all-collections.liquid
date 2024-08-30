@@ -1,0 +1,346 @@
+<section class="all-collections">
+  <h1 class="in-view-animation">Featured Collections</h1>
+  <div class="collection-container">
+    <div class="all-collections-wrapper">
+      {% for collection in collections %}
+        <div class="collection-card in-view-animation">
+          <div class="img-div">
+            <img
+              width="100%"
+              height="100%"
+              loading="lazy"
+              src="{{ collection.featured_image | image_url }}">
+          </div>
+          <h3>{{- collection.title | link_to: collection.url }}</h3>
+        </div>
+      {% endfor %}
+    </div>
+
+  {% comment %} <div class="scroll-buttons">
+                                    <button class="scroll-left">&lt;</button>
+                                    <button class="scroll-right">&gt;</button>
+                    </div> {% endcomment %}
+
+  </div>
+</section>
+
+<style>
+  .all-collections {
+    background: {{ section.settings.background }};
+    color: {{ section.settings.text_color }};
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid gray;
+  }
+  .all-collections h1 {
+    font-size: 40px;
+    position: relative;
+    display: inline-block;
+    /* Change the display to inline-block */
+  }
+
+  .all-collections h1::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    /* Adjust this value to control the space between the text and the underline */
+    width: 100%;
+    height: 4px;
+    /* Adjust the thickness of the underline */
+    background-color: black;
+    /* The color of the underline */
+    transform: scaleX(0);
+    /* Initially hide the underline */
+    transform-origin: center;
+    /* Start the underline from the left */
+    transition: transform 0.4s ease;
+    /* Animate the underline on hover */
+    border-radius: 2px;
+  }
+
+  .all-collections h1:hover::after {
+    transform: scaleX(1);
+    /* Show the underline on hover */
+
+  }
+
+  .collection-container {
+
+  ;
+
+
+  /*
+   position: relative;
+   overflow-x: scroll;
+*/
+
+}
+
+.all-collections-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  transition: transform 0.3s ease;
+}
+
+.collection-card {
+  grid-column: span 1;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  padding: 10px;
+}
+.img-div {
+  overflow: hidden;
+  height: 300px;
+}
+.img-div img {
+  height: 100%;
+}
+.collection-card img {
+  transition: 0.5s ease;
+  overflow: hidden;
+}
+.collection-card:hover img {
+  scale: 1.1;
+  transition: 0.5s ease;
+}
+
+.collection-card h3 a {
+  position: relative;
+  color: black;
+  text-decoration: none;
+}
+
+.collection-card h3 a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  /* Adjust this value to control the space between the text and the underline */
+  width: 100%;
+  height: 2px;
+  /* Adjust the thickness of the underline */
+  background-color: black;
+  /* The color of the underline */
+  transform: scaleX(0);
+  /* Initially hide the underline */
+  transform-origin: center;
+  /* Start the underline from the left */
+  transition: transform 0.4s ease;
+  /* Animate the underline on hover */
+  border-radius: 2px;
+}
+
+.collection-card h3 a:hover::after {
+  transform: scaleX(1);
+  /* Show the underline on hover */
+
+}
+
+@media (max-width: 1024px) {
+  .all-collections-wrapper {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .img-div {
+    overflow: hidden;
+    height: 250px;
+  }
+  .img-div img {
+    height: 100%;
+  }
+
+  /* try  */
+  .header-nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    z-index: 999;
+    border-bottom: 1px solid gray;
+  }
+  .header-nav .logo {
+    width: 50px;
+    height: 33px;
+  }
+  .middle-nav-links {
+    display: none;
+  }
+  .right-nav-items {
+    display: none;
+  }
+  .menu-icon {
+    display: flex;
+  }
+  .menu-icon img {
+    cursor: pointer;
+  }
+  .small-screen-nav {
+    padding: 0;
+    margin: 0;
+    display: none;
+    position: fixed;
+    top: 0; /* Ensure it's positioned from the top */
+    left: 0;
+    background-color: black;
+    width: 100%;
+    height: 100vh; /* Set to full viewport height */
+    overflow-y: auto; /* Allows scrolling if content exceeds viewport height */
+    overflow-x: hidden;
+    transition: 0.3s ease;
+  }
+  
+  
+  .small-screen-nav ul {
+    margin-top: 90px;
+  }
+  .small-screen-nav ul li {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 0;
+  }
+  .small-screen-nav ul li a {
+    position: relative;
+    color: white;
+    text-decoration: none ;
+    cursor: pointer;
+    font-size: 18px;
+    text-transform: uppercase;
+  }
+  .small-screen-nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px; /* Adjust this value to control the space between the text and the underline */
+    width: 100%;
+    height: 2px; /* Adjust the thickness of the underline */
+    background-color: white; /* The color of the underline */
+    transform: scaleX(0); /* Initially hide the underline */
+    transform-origin: center; /* Start the underline from the left */
+    transition: transform 0.4s ease; /* Animate the underline on hover */
+  }
+  
+  .small-screen-nav ul li a:hover::after {
+    transform: scaleX(1); /* Show the underline on hover */
+  }
+  .close-div {
+    position: relative;
+    width: 100%;
+    transition: 0.3s ease;
+  }
+  .close-div img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+    padding: 15px 20px 0 0;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .close-div img:hover {
+    transform: scale(1.1);
+  }
+
+  .search-small-screen {
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .sm-search-nav {
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    background-color: rgb(232, 232, 232);
+    border-radius: 20px;
+  }
+}
+
+/* Media Quries for another screens  */
+@media (max-width: 600px) {
+  .all-collections h1 {
+    font-size: 25px;
+    cursor: pointer;
+  }
+
+
+  .all-collections-wrapper {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    /* Adjust the number of columns */
+    gap: 10px;
+    justify-content: center;
+    /* Center the grid items horizontally */
+  }
+
+  .collection-card {
+    grid-column: span 1;
+    padding: 10px;
+    background-color: #ffffff;
+    /* Make the card span one column */
+  }
+
+  .collection-card img {
+    width: 300px;
+    height: 100%;
+  }
+  .img-div {
+    height: 280px;
+  }
+}
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const wrapper = document.querySelector('.all-collections-wrapper');
+    const scrollLeftButton = document.querySelector('.scroll-left');
+    const scrollRightButton = document.querySelector('.scroll-right');
+
+    scrollLeftButton.addEventListener('click', function () {
+      wrapper.scrollBy({
+        left: -300, // Adjust based on your card width
+        behavior: 'smooth',
+      });
+    });
+
+    scrollRightButton.addEventListener('click', function () {
+      wrapper.scrollBy({
+        left: 300, // Adjust based on your card width
+        behavior: 'smooth',
+      });
+    });
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "all-collections",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#F4F4F4"
+      }, {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text",
+        "default": "#000000"
+      }
+    ],
+    "presets": [
+      {
+        "name": "all-collections"
+      }
+    ]
+  }
+{% endschema %}

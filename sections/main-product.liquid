@@ -1,0 +1,158 @@
+<section class="product-main in-view-animation">
+  <div class="product-main-wrapper">
+    <div>
+      <img
+        width="400"
+        height="100%"
+        loading="lazy"
+        src="{{ product.featured_image | image_url}}">
+    </div>
+    <div>
+      <h1>{{ product.title }}</h1>
+      <p>{{ product.price | money }}</p>
+      <p>{{ product.description }}</p>
+      <h3>Select Size</h3>
+      {% form 'product'
+        , product %}
+        <select name="id">
+          {% for variant in product.variants %}
+            <option value="{{variant.id }}">
+              {{ variant.title }}
+            </option>
+          {% endfor %}
+        </select>
+        <div class="btns">
+          <button type="submit">Add to Card</button>
+          <input type="submit" value="Add to cart">
+        </div>
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+<style>
+  :root {
+    --red-color: #ED0800;
+  }
+  .product-main {
+    background: {{ section.settings.background }};
+    color: {{ section.settings.text_color }};
+    padding: 10px;
+  }
+
+  .product-main-wrapper {
+    display: flex;
+    padding: 30px;
+  }
+  .product-main-wrapper img {
+    padding: 0 30px;
+  }
+  .btns {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 15px;
+  }
+  .btns button {
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    border-radius: 30px;
+    background-color: #161616;
+    cursor: pointer;
+    color: white;
+    transition: all 0.3s ease-in-out;
+  }
+  .btns button:hover {
+    background-color: #1616168a;
+    transition: all 0.3s ease-in-out;
+  }
+  .btns input {
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    border-radius: 30px;
+    background-color: var(--red-color);
+    cursor: pointer;
+    color: white;
+    transition: all 0.3s ease-in-out;
+  }
+  .btns input:hover {
+    background-color: #ed080082;
+    transition: all 0.3s ease-in-out;
+  }
+
+  select {
+    padding: 10px;
+    border: 2px solid #ddd;
+    background-color: #f4f4f4;
+    color: #000;
+  }
+
+  /* Styling for option tags */
+  select option {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+  }
+
+  /* Optional: Hover effect for option tags */
+  select option:hover {
+    background-color: #eaeaea;
+  }
+
+  @media (max-width: 1024px) {
+    .btns button {
+    padding: 7px 15px;
+    font-size: 11px;
+  }
+  .btns input {
+    padding: 7px 15px;
+    font-size: 11px;
+  }
+  .product-main-wrapper img {
+      width: 260px;
+      height:260px;
+    }
+  }
+
+
+  /* MEDIA QURIES  */
+  @media (max-width: 600px) {
+    .product-main-wrapper {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px 30px;
+    }
+    .product-main-wrapper img {
+      width: 300px;
+      height: 300px;
+    }
+  }
+
+</style>
+
+{% schema %}
+  {
+    "name": "Product-main",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#F4F4F4"
+      }, {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text",
+        "default": "#000000"
+      }
+    ],
+    "presets": [
+      {
+        "name": "product-main"
+      }
+    ]
+  }
+{% endschema %}

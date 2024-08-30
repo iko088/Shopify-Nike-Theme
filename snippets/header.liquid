@@ -1,0 +1,77 @@
+<section>
+    <header class="header-nav">
+    {% comment %} Left dev  {% endcomment %}
+    <div>
+        <a href="/">
+        <img
+        class="logo"
+        width="80"
+        height="50"
+        loading="lazy"
+         src="{{ 'nike.png' |  asset_url }}" alt="">
+        </a>
+    </div>
+
+    {% comment %} Middle dev  {% endcomment %}
+    <div>
+        <ul class="middle-nav-links">
+            {% for link in linklists['main-menu'].links %}
+                <li>{{ link.title |  link_to: link.url}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    {% comment %} Right dev  {% endcomment %}
+    <div class="right-nav-items">
+        <form action="search">
+        <input type="search" name="q" placeholder="search" class="search-nav">
+        </form>
+        <a href="/cart">
+        <img
+        width="40"
+        height="40"
+        loading="lazy"
+         src="{{ 'd.png' |  asset_url }}" alt="">
+            </a>
+    </div>
+
+    <div class="menu-icon">
+        <img
+        width="25"
+        height="25"
+        loading="lazy"
+         src="{{ 'menu.png' |  asset_url }}" alt="">
+    </div>
+
+    <div class="small-screen-nav">
+        <div class="close-div">
+            <img
+                class="in-view-animation"
+                width="30"
+                height="30"
+                loading="lizy"
+                src="{{ 'close-btn.png' |  asset_url }}" alt="">
+        </div>
+        <ul>
+            {% for link in linklists['main-menu'].links %}
+                <li class="in-view-animation">{{ link.title |  link_to: link.url}}</li>
+            {% endfor %}
+        </ul>
+      
+    </div>
+
+    </header>
+    <div class="search-small-screen">
+        <form action="sm-search">
+        <input type="search" placeholder="search" class="sm-search-nav">
+        </form>
+        <a href="/cart">
+        <img
+        width="35"
+        height="35"
+        loading="lazy"
+         src="{{ 'd.png' |  asset_url }}" alt="">
+            </a>
+    </div>
+</section>
+    

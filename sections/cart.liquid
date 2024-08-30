@@ -1,0 +1,217 @@
+{% form 'cart'
+  , cart %}
+  <section class="cart-sec">
+    {% if cart.empty? %}
+      <div class="empty-cart">
+        <p>Cart is empty</p>
+      </div>
+    {% else %}
+      <div class="cart-grid">
+        {% for item in cart.items %}
+          <div class="cart-item in-view-animation">
+            <img
+              width="200"
+              height="200"
+              loading="lazy"
+              src="{{ item.image | image_url}}">
+            <h2>{{ item.title }}</h2>
+            <p>{{ item.final_line_price | money }}</p>
+            <input name="updates[]" value="{{ item.quantity }}">
+            <div class="mosebat">
+              <a href="{{ item.url_to_remove }}">Remove</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="cart-actions">
+        <button
+          class="update"
+          type="submit"
+          name="update">Update</button>
+        <button
+          class="checkout"
+          type="submit"
+          name="checkout">Checkout</button>
+        <h3>Total: {{ cart.total_price | money }}</h3>
+      </div>
+    {% endif %}
+  </section>
+{% endform %}
+
+<style>
+  .cart-sec {
+    background-color: rgb(226, 226, 226);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  /* Grid for Cart Items */
+  .cart-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 columns */
+    gap: 10px;
+    /* Gap between grid items */
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  /* Cart Item Styling */
+  .cart-item {
+    background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+    padding: 20px 10px;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  .cart-item input {
+    padding: 8px 10px;
+    background-color: #cbcbcb;
+    border: none;
+    outline: transparent;
+    border-radius: 10px;
+  }
+  .cart-item a {
+    text-decoration: none;
+    color: black;
+    padding: 8px 20px;
+    margin: 20px 0 10px;
+    background-color: #eb2632;
+    color: white;
+    border-radius: 30px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .cart-item a:hover {
+    background-color: #eb263376;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .cart-item .mosebat {
+    margin: 20px 0 10px;
+  }
+
+  .cart-item img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  /* Cart Actions Styling */
+  .cart-actions {
+    margin-top: 20px;
+    text-align: center;
+
+  }
+
+  .cart-actions .update {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    outline: transparent;
+    border-radius: 30px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  .cart-actions .update:hover {
+    background-color: rgba(0, 0, 0, 0.436);
+    transition: all 0.3s ease-in-out;
+  }
+  .cart-actions .checkout {
+    padding: 10px 20px;
+    background-color: #1B9CC9;
+    color: white;
+    border: none;
+    outline: transparent;
+    border-radius: 30px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  .cart-actions .checkout:hover {
+    background-color: #1b9bc97e;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .cart-actions h3 {
+    background: #ffffff;
+    padding: 10px 20px;
+  }
+
+
+  @media (max-width: 1024px) {
+    .cart-grid {
+      grid-template-columns: repeat(2, 1fr);
+      /* 2 columns on medium screens */
+    }
+    .cart-item {
+      line-height: 10px;
+    }
+    .cart-item .mosebat {
+      margin: 25px 0 10px;
+    }
+  }
+
+  /* MEDIA QUERIES */
+  @media (max-width: 768px) {
+    .cart-grid {
+      grid-template-columns: repeat(2, 1fr);
+
+      /* 2 columns on medium screens */
+    }
+  }
+
+  @media (max-width: 600px) {
+    .cart-grid {
+      grid-template-columns: repeat(1, 1fr);
+      line-height: 1px;
+    }
+
+    .cart-item {
+      display: inline-block;
+    }
+
+    .cart-item a {
+      padding: 15px 30px !important;
+      margin: 10px 0 !important;
+      /* Force the margin to apply */
+      display: inline-block;
+      /* Ensure the link is displayed as a block element to respect vertical margin */
+    }
+    .cart-item .mosebat {
+      margin: 5px 0;
+    }
+  }
+
+
+</style>
+
+{% schema %}
+  {
+    "name": "cart",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#F4F4F4"
+      }, {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text",
+        "default": "#000000"
+      }
+    ],
+    "presets": [
+      {
+        "name": "cart"
+      }
+    ]
+  }
+{% endschema %}

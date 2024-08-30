@@ -1,0 +1,39 @@
+<section>
+    <div class="login-page">
+  <h1>Customer Login</h1>
+  <form method="post" action="{{ routes.account_login_url }}" accept-charset="UTF-8">
+    <input type="hidden" name="form_type" value="customer_login">
+    <input type="hidden" name="utf8" value="✓">
+    
+    <label for="customer_email">Email</label>
+    <input type="email" name="customer[email]" id="customer_email" required>
+    
+    <label for="customer_password">Password</label>
+    <input type="password" name="customer[password]" id="customer_password" required>
+    
+    <button type="submit">Sign In</button>
+  </form>
+</div>
+
+</section>
+
+{% schema %}
+    {
+      "name": "Customer Login",
+      "settings": [
+        {
+          "type": "text",
+          "id": "login_heading",
+          "label": "Login Heading",
+          "default": "Customer Login"
+        }
+      ],
+      "presets": [
+        {
+          "name": "Default",
+          "category": "Custom"
+        }
+      ]
+    }
+    {% endschema %}
+    

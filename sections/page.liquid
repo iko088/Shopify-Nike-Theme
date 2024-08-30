@@ -1,0 +1,68 @@
+{% comment %} 
+  Pages Section for displaying custom pages like Guides, Terms of Sale, and Privacy Policy. 
+{% endcomment %}
+
+<section class="custom-page">
+  <div class="container">
+    {% assign page_content = page.content %}
+    {% if page_content %}
+      <h1 class="page-title">{{ page.title }}</h1>
+      <div class="page-content">
+        {{ page_content }}
+      </div>
+    {% else %}
+      <p>Sorry, the content you're looking for cannot be found.</p>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .custom-page {
+    padding: 50px 0;
+    background-color: #f9f9f9;
+  }
+  .custom-page .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  .custom-page .page-title {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  .custom-page .page-content {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #666;
+    text-align: justify;
+  }
+  .custom-page .page-content a {
+    color: #007acc;
+    text-decoration: underline;
+  }
+  .custom-page .page-content a:hover {
+    color: #005f99;
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "page",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_title",
+        "label": "Show Page Title",
+        "default": true
+      }
+    ],
+    "presets": [
+      {
+        "name": "page",
+        "category": "page"
+      }
+    ]
+  }
+{% endschema %}

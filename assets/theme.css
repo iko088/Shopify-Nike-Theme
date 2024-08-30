@@ -1,0 +1,352 @@
+* {
+  /* border: 1px solid red; */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: "{{ settings.bg }}";
+  /* background-color: #f0f0f0; */
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Base styling */
+.in-view-animation {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+/* When in view, apply this style */
+.in-view-animation.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/**
+ * --------------------------------------------------------------------
+ * ANNOUNCEMENT BAR
+ * --------------------------------------------------------------------
+ */
+
+.announcement-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+
+.announcement-bar-left-section {
+  display: flex;
+  align-items: center;
+}
+
+.announcement-bar-inner-list {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.announcement-bar-inner-list li {
+  list-style-type: none;
+  font-size: 15px;
+  padding: 3px;
+}
+
+.announcement-bar-inner-list a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+
+.menu-icon {
+  display: none;
+}
+.small-screen-nav {
+  display: none;
+}
+
+.search-small-screen {
+  display: none;
+}
+
+.middle-nav-links {
+  display: flex;
+  align-self: center;
+  gap: 20px;
+}
+.middle-nav-links li {
+  list-style: none;
+}
+.middle-nav-links li a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.right-nav-items {
+  display: flex;
+  align-items: center;
+}
+
+.search-nav {
+  padding: 10px 20px;
+  margin: 0 10px;
+  outline: none;
+  border: none;
+  border-radius: 30px;
+  background-color: rgb(232, 232, 232);
+}
+
+.notfound {
+  background-color: rgb(226, 226, 226);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Set the height to the full viewport height */
+}
+
+body::-webkit-scrollbar {
+  height: 12px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+  border: 3px solid #f1f1f1;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+  cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .header-nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    z-index: 999;
+  }
+  .header-nav .logo {
+    width: 50px;
+    height: 33px;
+  }
+  .middle-nav-links {
+    display: none;
+  }
+  .right-nav-items {
+    display: none;
+  }
+  .menu-icon {
+    display: flex;
+  }
+  .menu-icon img {
+    cursor: pointer;
+  }
+  .small-screen-nav {
+    padding: 0;
+    margin: 0;
+    display: none;
+    position: fixed;
+    top: 0; /* Ensure it's positioned from the top */
+    left: 0;
+    background-color: black;
+    width: 100%;
+    height: 100vh; /* Set to full viewport height */
+    overflow-y: auto; /* Allows scrolling if content exceeds viewport height */
+    overflow-x: hidden;
+    transition: 0.3s ease;
+  }
+
+  .small-screen-nav ul {
+    margin-top: 90px;
+  }
+  .small-screen-nav ul li {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 0;
+  }
+  .small-screen-nav ul li a {
+    position: relative;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 18px;
+    text-transform: uppercase;
+  }
+  .small-screen-nav ul li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px; /* Adjust this value to control the space between the text and the underline */
+    width: 100%;
+    height: 2px; /* Adjust the thickness of the underline */
+    background-color: white; /* The color of the underline */
+    transform: scaleX(0); /* Initially hide the underline */
+    transform-origin: center; /* Start the underline from the left */
+    transition: transform 0.4s ease; /* Animate the underline on hover */
+  }
+
+  .small-screen-nav ul li a:hover::after {
+    transform: scaleX(1); /* Show the underline on hover */
+  }
+  .close-div {
+    position: relative;
+    width: 100%;
+    transition: 0.3s ease;
+  }
+  .close-div img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+    padding: 15px 20px 0 0;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .close-div img:hover {
+    transform: scale(1.1);
+  }
+
+  .search-small-screen {
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .sm-search-nav {
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    background-color: rgb(232, 232, 232);
+    border-radius: 20px;
+  }
+}
+
+/* Media Quries for header  */
+@media (max-width: 600px) {
+  .header-nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    z-index: 999;
+  }
+  .header-nav .logo {
+    width: 50px;
+    height: 33px;
+  }
+  .middle-nav-links {
+    display: none;
+  }
+  .right-nav-items {
+    display: none;
+  }
+  .menu-icon {
+    display: flex;
+  }
+  .menu-icon img {
+    cursor: pointer;
+  }
+  .small-screen-nav {
+    padding: 0;
+    margin: 0;
+    display: none;
+    position: fixed;
+    top: 0; /* Ensure it's positioned from the top */
+    left: 0;
+    background-color: black;
+    width: 100%;
+    height: 100vh; /* Set to full viewport height */
+    overflow-y: auto; /* Allows scrolling if content exceeds viewport height */
+    overflow-x: hidden;
+    transition: 0.3s ease;
+  }
+
+  .small-screen-nav ul {
+    margin-top: 90px;
+  }
+  .small-screen-nav ul li {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 0;
+  }
+  .small-screen-nav ul li a {
+    position: relative;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 18px;
+    text-transform: uppercase;
+  }
+  .small-screen-nav ul li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px; /* Adjust this value to control the space between the text and the underline */
+    width: 100%;
+    height: 2px; /* Adjust the thickness of the underline */
+    background-color: white; /* The color of the underline */
+    transform: scaleX(0); /* Initially hide the underline */
+    transform-origin: center; /* Start the underline from the left */
+    transition: transform 0.4s ease; /* Animate the underline on hover */
+  }
+
+  .small-screen-nav ul li a:hover::after {
+    transform: scaleX(1); /* Show the underline on hover */
+  }
+  .close-div {
+    position: relative;
+    width: 100%;
+    transition: 0.3s ease;
+  }
+  .close-div img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+    padding: 15px 20px 0 0;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  .close-div img:hover {
+    transform: scale(1.1);
+  }
+
+  .search-small-screen {
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+  .sm-search-nav {
+    padding: 10px 15px !important;
+    border: none;
+    outline: none;
+    background-color: rgb(232, 232, 232);
+    border-radius: 20px;
+  }
+}

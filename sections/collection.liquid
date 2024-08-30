@@ -1,0 +1,234 @@
+{% paginate collection.products by 4 %}
+  <section class="collection-sec">
+    <div>
+      <select id="sort-by" class="in-view-animation">
+        {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+
+        {% for option in collection.sort_options %}
+          <option
+            value="{{ option.value }}"
+            {% if option.value == sort_by %}
+            selected="selected"
+            {% endif %}>
+            {{ option.name }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <h1 class="in-view-animation">collections</h1>
+      <h2 class="in-view-animation">{{ collection.title }}</h2>
+      <div class="products-grid">
+        {% for product in collection.products %}
+          <div class="product-card in-view-animation">
+            <div class="img-div">
+              <img
+                width="300"
+                height="300"
+                loading="lazy"
+                src="{{ product.featured_image | image_url}}">
+            </div>
+            <div class="title">
+              <h3>{{- product.title | link_to: product.url }}</h3>
+              <p>
+                {{ product.price | money_with_currency }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  {{ paginate | default_pagination }}
+{% endpaginate %}
+
+<style>
+  .collection-sec {
+    background: {{ section.settings.background }};
+    color: {{ section.settings.text_color }};
+    padding: 10px;
+    display: flex;
+    justify-content: space-between
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* Three columns */
+    gap: 20px;
+    /* Adjust the gap between grid items */
+  }
+
+  .product-card {
+    border: 1px solid #ddd;
+    text-align: center;
+    overflow: hidden;
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+    padding: 10px;
+  }
+
+  .product-card img {
+    max-width: 100%;
+    height: 100%;
+  }
+  .product-card h3 a {
+    text-decoration: none;
+    color: #000;
+  }
+
+  .product-card .img-div img {
+    transition: 0.5s ease;
+  }
+  .product-card .img-div img:hover {
+    transform: scale(1.1);
+  }
+  .img-div {
+    height: 280px;
+    overflow: hidden;
+    background-color: #f4f4f4;
+    height: 300px;
+  }
+
+  .title h3 a {
+    position: relative;
+    /* display: inline-block; */
+  }
+
+  .title h3 a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    /* Adjust this value to control the space between the text and the underline */
+    width: 100%;
+    height: 2px;
+    /* Adjust the thickness of the underline */
+    background-color: black;
+    /* The color of the underline */
+    transform: scaleX(0);
+    /* Initially hide the underline */
+    transform-origin: center;
+    /* Start the underline from the left */
+    transition: transform 0.4s ease;
+    /* Animate the underline on hover */
+  }
+
+  .title h3 a:hover::after {
+    transform: scaleX(1);
+    /* Show the underline on hover */
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    line-height: 1px;
+    padding: 10px 0;
+  }
+
+  select {
+    padding: 10px;
+    border: 2px solid #ddd;
+    background-color: #f4f4f4;
+    color: #000;
+  }
+
+  /* Styling for option tags */
+  select option {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+  }
+
+  /* Optional: Hover effect for option tags */
+  select option:hover {
+    background-color: #eaeaea;
+  }
+
+  @media (max-width: 1024px) {
+    .collection-sec {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: column;
+    }
+    .products-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .product-card {
+      border: 1px solid #ddd;
+      text-align: center;
+      overflow: hidden;
+      padding: 15px 10px;
+    }
+
+    .product-card img {
+      max-width: 100%;
+      height: 300px;
+    }
+  }
+
+  /* MEDIA QURIES   */
+  @media (max-width: 600px) {
+    .collection-sec {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .products-grid {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+  }
+
+</style>
+
+<script>
+  Shopify.queryParams = {};
+
+  // Preserve existing query parameters
+  if (location.search.length) {
+    var params = location.search.substr(1).split('&');
+
+    for (var i = 0; i < params.length; i++) {
+      var keyValue = params[i].split('=');
+
+      if (keyValue.length) {
+        Shopify.queryParams[decodeURIComponent(keyValue[0])] = decodeURIComponent(keyValue[1]);
+      }
+    }
+  }
+
+  // Update sort_by query parameter on select change
+  document.querySelector('#sort-by').addEventListener('change', function (e) {
+    var value = e.target.value;
+
+    Shopify.queryParams.sort_by = value;
+    location.search = new URLSearchParams(Shopify.queryParams).toString();
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "collection",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#F4F4F4"
+      }, {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text",
+        "default": "#000000"
+      }
+    ],
+    "presets": [
+      {
+        "name": "collection"
+      }
+    ]
+  }
+{% endschema %}

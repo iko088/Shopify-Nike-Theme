@@ -1,0 +1,87 @@
+<section class="search-section" style="background-color: {{ section.settings.background }}; color: {{ section.settings.text_color }};">
+  {% if search.performed %}
+    <h1>Search Results</h1>
+    <div class="search-results">
+      {% if search.results.size > 0 %}
+        <ul>
+          {% for result in search.results %}
+            <li class="search-result-item">
+              {% if result.object_type == 'product' %}
+                <a href="{{ result.url }}">
+                  <h2>{{ result.title }}</h2>
+                  {% if result.product.price %}
+                    <p>Price: {{ result.product.price | money }}</p>
+                  {% endif %}
+                  {% comment %} <img
+                  width="200"
+                  height="200"
+                   src="{{ result.product.featured_image | img_url }}" alt="{{ result.product.title }}">
+                </a> {% endcomment %}
+              {% else %}
+                <p>{{ result.title |  link_to: result.url }} - {{ result.object_type }}</p>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No results found!</p>
+      {% endif %}
+    </div>
+  {% else %}
+    <h1>Please enter a search query.</h1>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Search",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background Color",
+      "default": "#F4F4F4"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Search Results"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+.search-section {
+  padding: 10px 20px;
+}
+  .search-results {
+    padding: 20px;
+  }
+  
+  .search-result-item {
+    margin-bottom: 20px;
+  }
+  
+  .search-result-item img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .search-result-item h2 {
+    font-size: 18px;
+    margin: 0;
+  }
+  
+  .search-result-item p {
+    margin: 5px 0;
+  }
+{% endstylesheet %}

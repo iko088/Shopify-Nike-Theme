@@ -1,0 +1,43 @@
+<section>
+    <div class="register-page">
+  <h1>{{ section.settings.register_heading }}</h1>
+  <form method="post" action="{{ routes.account_register_url }}" accept-charset="UTF-8">
+    <input type="hidden" name="form_type" value="create_customer">
+    <input type="hidden" name="utf8" value="✓">
+    
+    <label for="first_name">First Name</label>
+    <input type="text" name="customer[first_name]" id="first_name" required>
+    
+    <label for="last_name">Last Name</label>
+    <input type="text" name="customer[last_name]" id="last_name" required>
+    
+    <label for="email">Email</label>
+    <input type="email" name="customer[email]" id="email" required>
+    
+    <label for="password">Password</label>
+    <input type="password" name="customer[password]" id="password" required>
+    
+    <button type="submit">Create Account</button>
+  </form>
+</div>
+</section>
+
+{% schema %}
+{
+  "name": "Customer Register",
+  "settings": [
+    {
+      "type": "text",
+      "id": "register_heading",
+      "label": "Register Heading",
+      "default": "Create Account"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Default",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

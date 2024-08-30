@@ -1,0 +1,80 @@
+<section >
+  <div class="footer-main">
+    <img
+      width="50"
+      height="50"
+      loading="lazy"
+      src="{{ 'nike.png' |  asset_url }}"
+      alt="">
+    {% assign footer_menu = linklists['footer'] %}
+    {% if footer_menu %}
+      <ul>
+        {% for link in footer_menu.links %}
+          <li>
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+  <div class="copy">
+    <p>&copy; 2024 Iko. All rights reserved.</p>
+  </div>
+</section>
+
+<style>
+  .footer-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+  }
+  .footer-main ul {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  .footer-main ul li {
+    list-style: none;
+  }
+  .footer-main ul li a {
+    text-decoration: none;
+    color: black;
+  }
+  .copy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    color: white;
+  }
+
+  @media (max-width: 600px) {
+    .footer-main img {
+      width: 40px;
+      height: 40px;
+    }
+    ul li:not(:last-child) {
+      padding-right: 6px;
+      border-right: 1.2px solid #737373;
+    }
+    ul li a {
+      font-size: 11px;
+    }
+    .copy p {
+      font-size: 10px;
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "footer",
+    "settings": [],
+    "presets": [
+      {
+        "name": "footer"
+      }
+    ]
+  }
+{% endschema %}

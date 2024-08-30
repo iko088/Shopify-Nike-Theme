@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {{ content_for_header }}
+
+    <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
+</head>
+<body>
+    {% section 'announcement-bar' %}
+    {% section 'header' %}
+    <main id="main" role="main">
+        {{ content_for_layout }}
+    </main>
+
+    {% section 'footer' %}
+
+    <script src="{{ 'script.js' | asset_url }}"></script>
+</body>
+</html> 
